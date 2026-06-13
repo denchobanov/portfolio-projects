@@ -1,0 +1,24 @@
+INFO: User logged in
+INFO: Session initialized
+WARNING: Disk space low
+INFO: Attempting cleanup of temporary files
+ERROR: Connection timeout
+INFO: Retrying connection (attempt 1)
+ERROR: Connection timeout
+INFO: Retrying connection (attempt 2)
+WARNING: High memory usage detected
+INFO: Memory optimization routine started
+ERROR: Permission denied
+INFO: Checking user privileges
+INFO: Privilege escalation not available
+WARNING: Unauthorized access attempt blocked
+INFO: Security scan completed
+INFO: Backup process started
+INFO: Backup in progress (45%)
+INFO: Backup in progress (85%)
+INFO: Backup completed successfully
+INFO: Log rotation initiated
+INFO: Old logs archived
+WARNING: Disk space low
+INFO: Cleanup finished, 1.2 GB freed
+INFO: System running normally
