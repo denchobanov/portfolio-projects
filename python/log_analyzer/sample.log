@@ -1,17 +1,23 @@
 INFO: User logged in
 INFO: Session initialized
 WARNING: Disk space low
+FAILED LOGIN: root
+FAILED LOGIN: guest
 INFO: Attempting cleanup of temporary files
 ERROR: Connection timeout
+FAILED LOGIN: backup
 INFO: Retrying connection (attempt 1)
 ERROR: Connection timeout
+FAILED LOGIN: admin
 INFO: Retrying connection (attempt 2)
 WARNING: High memory usage detected
 INFO: Memory optimization routine started
 ERROR: Permission denied
+FAILED LOGIN: root
 INFO: Checking user privileges
 INFO: Privilege escalation not available
 WARNING: Unauthorized access attempt blocked
+FAILED LOGIN: admin
 INFO: Security scan completed
 INFO: Backup process started
 INFO: Backup in progress (45%)
