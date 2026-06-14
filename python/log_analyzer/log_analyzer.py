@@ -4,6 +4,9 @@ from datetime import datetime
 timestamp=datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 
 path = input("Enter log file path: ")
+
+# Create a reports folder if it doesnt exist
+os.makedirs('reports', exist_ok=True)
 reportPath = os.path.join('reports',f'analysis_report_{timestamp}.txt')
 
 # Counters
@@ -70,17 +73,17 @@ try:
 
     # Report generation
     with open(reportPath,'w') as reportFile:
-        reportFile.write(f'===== LOG ANALYSIS REPORT =====\n\n\n')
+        reportFile.write(f'===== LOG ANALYSIS REPORT =====\n\n')
         reportFile.write(f'Generated: {timestamp}\n')
         reportFile.write(f'Analyzed File: {os.path.basename(path)}\n\n')
-        reportFile.write(f'Errors: {errCnt}\n\n')
-        reportFile.write(f'Warnings: {wrnCnt}\n\n')
-        reportFile.write(f'Info: {infoCnt}\n\n')
+        reportFile.write(f'Errors: {errCnt}\n')
+        reportFile.write(f'Warnings: {wrnCnt}\n')
+        reportFile.write(f'Info: {infoCnt}\n')
         reportFile.write(f'Total entries: {totalEntries}\n\n')
-        reportFile.write(f'===== MOST COMMON ERRORS =====\n\n\n')
+        reportFile.write(f'===== MOST COMMON ERRORS =====\n\n')
        
         for key,value in errDict.items():
-            reportFile.write(f'{key}: {value}\n\n')
+            reportFile.write(f'{key}: {value}\n')
             
             # Find the most frequently occurring error
             if value>maxValue:
@@ -93,12 +96,12 @@ try:
         else:
             reportFile.write('\nTop Issue: No errors detected\n\n')
         
-        reportFile.write('===== SECURITY SUMMARY =====\n\n\n')
+        reportFile.write('===== SECURITY SUMMARY =====\n\n')
         reportFile.write(f'Failed login attempts: {failedLoginCnt}\n\n')
-        reportFile.write('Affected accounts:\n\n')
+        reportFile.write('Affected accounts:\n')
         for key,value in failedLoginDict.items():
-            reportFile.write(f'{key}: {value}\n\n')
-        reportFile.write('===== SUMMARY =====\n\n')
+            reportFile.write(f'{key}: {value}\n')
+        reportFile.write('\n===== SUMMARY =====\n\n')
         reportFile.write(f'Errors: {errCnt}\n')
         reportFile.write(f'Warnings: {wrnCnt}\n')
         reportFile.write(f'Info: {infoCnt}\n')

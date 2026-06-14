@@ -1,40 +1,28 @@
 ===== LOG ANALYSIS REPORT =====
 
-
-Generated: 2026-06-14_20-11-27
+Generated: 2026-06-14_20-28-43
 Analyzed File: sample.log
 
 Errors: 3
-
 Warnings: 4
-
 Info: 17
-
 Total entries: 30
 
 ===== MOST COMMON ERRORS =====
 
-
 Connection timeout: 2
-
 Permission denied: 1
-
 
 Top Issue: Connection timeout (Occurrences: 2)
 
 ===== SECURITY SUMMARY =====
 
-
 Failed login attempts: 6
 
 Affected accounts:
-
 root: 2
-
 guest: 1
-
 backup: 1
-
 admin: 2
 
 ===== SUMMARY =====
