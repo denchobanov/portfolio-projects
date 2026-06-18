@@ -61,7 +61,7 @@ def print_results(results, duration):
     print('\n===== SUMMARY =====\n')
     print(f'Open ports: {open_ports}')
     print(f'Closed ports: {closed_ports}')
-    print(f'\n Scan Duration: {duration:.2f} seconds')
+    print(f'Scan Duration: {duration:.2f} seconds\n')
     
 
 # Save scanned results to a timestamped report
