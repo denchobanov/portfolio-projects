@@ -1,8 +1,10 @@
 import socket, subprocess, time, os, json
 from datetime import datetime
 
+# Generate timestamp for reports
 timestamp=datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 
+# Load scanner configuration
 try:
     with open('config.json', 'r') as config_file:
         config = json.load(config_file)
@@ -13,14 +15,18 @@ except json.JSONDecodeError:
     print('Invalid JSON format in config.json!')
     exit() 
 
+# Check if target host is reachable
 def ping_host(ip):
     checkOnline = subprocess.run(['ping', '-c', str(config['ping_count']), ip],capture_output=True)
     if checkOnline.returncode != 0:
        return False
     return True
 
+# Scan configured ports and store their status
 def scan_ports(ip, ports):
     scan_results = {}
+
+    # Attempt to connect to the current port
     for port in ports:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(config['timeout'])
@@ -32,6 +38,7 @@ def scan_ports(ip, ports):
         sock.close()
     return scan_results
 
+# Count open and closed ports
 def count_ports(results):
     closed_ports = 0
     open_ports = 0
@@ -44,6 +51,7 @@ def count_ports(results):
     
     return open_ports, closed_ports
 
+# Display scan results in the terminal
 def print_results(results, duration):
     open_ports, closed_ports = count_ports(results)
 
@@ -56,12 +64,16 @@ def print_results(results, duration):
     print(f'\n Scan Duration: {duration:.2f} seconds')
     
 
+# Save scanned results to a timestamped report
 def save_report(ip, results, duration):
+
+    # Create reports directory if it doesn't exist
     os.makedirs('reports', exist_ok=True)
     report_path = os.path.join('reports',f'network_scan_{timestamp}.txt')
     
     open_ports, closed_ports = count_ports(results)
-
+    
+    # Write scan results to the report
     with open(report_path,'w') as report:
         report.write('===== NETWORK SCAN REPORT =====\n\n')
         report.write(f'Generated: {timestamp}\n')
@@ -77,10 +89,14 @@ def save_report(ip, results, duration):
     print(f'Report saved to: {os.path.dirname(report_path)}/')
 
 ip = input('Enter an ip: ')
+
+# Measure scan duration
 start_time = time.time()
 if not ping_host(ip):
     print('Host unreachable!')
     exit()
+
+# Load ports from the configuration file
 ports = config['ports']
 scan_results = scan_ports(ip, ports)
 end_time = time.time()
