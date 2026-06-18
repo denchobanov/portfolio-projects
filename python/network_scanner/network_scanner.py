@@ -1,4 +1,4 @@
-import socket, subprocess, time, os, json
+import socket, subprocess, time, os, json, sys
 from datetime import datetime
 
 # Generate timestamp for reports
@@ -88,7 +88,12 @@ def save_report(ip, results, duration):
     
     print(f'Report saved to: {os.path.dirname(report_path)}/')
 
-ip = input('Enter an ip: ')
+# Validate arguments 
+if len (sys.argv) != 2:
+    print('Usage: python3 network_scanner.py <ip>')
+    exit()
+
+ip = sys.argv[1]
 
 # Measure scan duration
 start_time = time.time()
