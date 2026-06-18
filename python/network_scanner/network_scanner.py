@@ -1,10 +1,20 @@
-import socket, subprocess, time, os
+import socket, subprocess, time, os, json
 from datetime import datetime
 
 timestamp=datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 
+try:
+    with open('config.json', 'r') as config_file:
+        config = json.load(config_file)
+except FileNotFoundError:
+    print('config.json not found!')
+    exit()
+except json.JSONDecodeError:
+    print('Invalid JSON format in config.json!')
+    exit() 
+
 def ping_host(ip):
-    checkOnline = subprocess.run(['ping', '-c', '4', ip],capture_output=True)
+    checkOnline = subprocess.run(['ping', '-c', str(config['ping_count']), ip],capture_output=True)
     if checkOnline.returncode != 0:
        return False
     return True
@@ -13,7 +23,7 @@ def scan_ports(ip, ports):
     scan_results = {}
     for port in ports:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(1)
+        sock.settimeout(config['timeout'])
         connection_status = sock.connect_ex((ip,port))
         if connection_status == 0:
             scan_results[port] = 'OPEN'
@@ -71,7 +81,7 @@ start_time = time.time()
 if not ping_host(ip):
     print('Host unreachable!')
     exit()
-ports = [22, 80, 443, 3389]
+ports = config['ports']
 scan_results = scan_ports(ip, ports)
 end_time = time.time()
 duration = end_time - start_time
